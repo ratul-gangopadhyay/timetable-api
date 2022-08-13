@@ -1,0 +1,19 @@
+package com.myschool.timetable.constants.enums;
+
+public enum Subjects {
+    BIOLOGY,
+    CHEMISTRY,
+    COMPUTER_SCIENCE,
+    ENGLISH_LANGUAGE,
+    ENGLISH_LITERATURE,
+    EXTRA_CURRICULAR_ACTIVITIES,
+    GAMES,
+    GEOGRAPHY,
+    HINDI,
+    HISTORY,
+    MATHEMATICS,
+    MORAL_SCIENCE,
+    PHYSICAL_TRAINING,
+    PHYSICS,
+    SOCIAL_STUDIES
+}
