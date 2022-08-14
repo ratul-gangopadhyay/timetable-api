@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @OpenAPIDefinition(
         info = @Info(
                 title = "time-table-api",
-                description = "A collection of apis for creating a non clashing Time table"
+                description = "A collection of apis for generating a non clashing Time table"
         ))
 public class TimeTableApiApplication {
 
