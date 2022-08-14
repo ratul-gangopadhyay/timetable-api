@@ -10,7 +10,7 @@ spring.data.mongodb.host=
 spring.data.mongodb.port=
 spring.data.mongodb.database=your db name
 ```
-3. That's it! your'e done 😀.
+3. That's it! Your'e good to run your application 😀.
 
 ## Swagger Documentation
 
