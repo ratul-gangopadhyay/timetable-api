@@ -27,7 +27,6 @@ import java.util.List;
 import static com.myschool.timetable.constants.Messages.DELETE_CLASS_SUCCESS;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/class")
 @Validated
 public class ClassController {
