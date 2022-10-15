@@ -30,7 +30,6 @@ import static com.myschool.timetable.constants.Messages.CSV_ROUTINE_FILENAME;
 
 @RestController
 @RequestMapping("/slot")
-@CrossOrigin(origins = "http://localhost:3000")
 public class TimetableController {
     @Autowired
     private TimetableService timetableService;

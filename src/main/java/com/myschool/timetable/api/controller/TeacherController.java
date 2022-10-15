@@ -24,7 +24,6 @@ import static com.myschool.timetable.constants.Messages.DELETE_TEACHER_SUCCESS;
 
 @RestController
 @RequestMapping("/teachers")
-@CrossOrigin(origins = "http://localhost:3000")
 @Validated
 public class TeacherController {
 
