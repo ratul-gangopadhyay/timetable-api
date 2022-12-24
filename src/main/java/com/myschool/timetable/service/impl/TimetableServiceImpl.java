@@ -9,6 +9,7 @@ import com.myschool.timetable.constants.enums.WeekDay;
 import com.myschool.timetable.exception.TimeTableException;
 import com.myschool.timetable.mappers.CustomMapper;
 import com.myschool.timetable.models.dto.request.TimetableRequestDTO;
+import com.myschool.timetable.models.dto.response.RoutineResponseDTO;
 import com.myschool.timetable.models.dto.response.TimetableResponseDTO;
 import com.myschool.timetable.models.entity.Teacher;
 import com.myschool.timetable.models.entity.Timetable;
@@ -25,9 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.myschool.timetable.constants.Messages.CSV_WRITING_ERROR;
@@ -117,6 +118,23 @@ public class TimetableServiceImpl implements TimetableService {
     }
 
     @Override
+    public RoutineResponseDTO fetchRoutineInMap(Standard standard, Section section) {
+        Map<WeekDay, Map<MyPeriod, TimetableResponseDTO>> routineMap = new HashMap<>();
+        List<TimetableResponseDTO> timetables = fetchRoutine(standard, section);
+        for (WeekDay day : WeekDay.values()) {
+            Map<MyPeriod, TimetableResponseDTO> map = timetables
+                    .stream()
+                    .filter(timetable -> timetable.getWeekDay().equals(day))
+                    .collect(Collectors.toMap(TimetableResponseDTO::getPeriod, entry -> entry));
+            routineMap.put(day, map);
+        }
+        return RoutineResponseDTO.builder()
+                .section(section)
+                .standard(standard)
+                .routineMap(routineMap).build();
+    }
+
+    @Override
     public String deleteSlotDetails(Standard standard, Section section, WeekDay weekDay, MyPeriod period) {
         Timetable timetableToBeDeleted = timetableRepository.
                 findByStandardSectionWeekdayPeriod(standard, section, weekDay, period)
@@ -134,19 +152,19 @@ public class TimetableServiceImpl implements TimetableService {
         List<Timetable> timetables = timetableRepository.findAllByStandardAndSection(standard, section);
         Map<MyPeriod, String> mondayMap = timetables.stream().filter(slot -> slot.getWeekDay().equals(WeekDay.MON))
                 .collect(Collectors.toMap(Timetable::getPeriod,
-                        timetable -> String.format( ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
+                        timetable -> String.format(ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
         Map<MyPeriod, String> tuesdayMap = timetables.stream().filter(slot -> slot.getWeekDay().equals(WeekDay.TUE))
                 .collect(Collectors.toMap(Timetable::getPeriod,
-                        timetable -> String.format( ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
+                        timetable -> String.format(ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
         Map<MyPeriod, String> wednesdayMap = timetables.stream().filter(slot -> slot.getWeekDay().equals(WeekDay.WED))
                 .collect(Collectors.toMap(Timetable::getPeriod,
-                        timetable -> String.format( ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
+                        timetable -> String.format(ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
         Map<MyPeriod, String> thursdayMap = timetables.stream().filter(slot -> slot.getWeekDay().equals(WeekDay.THU))
                 .collect(Collectors.toMap(Timetable::getPeriod,
-                        timetable -> String.format( ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
+                        timetable -> String.format(ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
         Map<MyPeriod, String> fridayMap = timetables.stream().filter(slot -> slot.getWeekDay().equals(WeekDay.FRI))
                 .collect(Collectors.toMap(Timetable::getPeriod,
-                        timetable -> String.format( ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
+                        timetable -> String.format(ROUTINE_SLOT_FORMAT, timetable.getSubject(), timetable.getTeacherName())));
 
 
         String[] headers = new String[]{"DAY/PERIOD", "FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH"};
