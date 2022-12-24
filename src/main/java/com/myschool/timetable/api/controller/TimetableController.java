@@ -5,13 +5,13 @@ import com.myschool.timetable.constants.enums.Section;
 import com.myschool.timetable.constants.enums.Standard;
 import com.myschool.timetable.constants.enums.WeekDay;
 import com.myschool.timetable.models.dto.request.TimetableRequestDTO;
+import com.myschool.timetable.models.dto.response.RoutineResponseDTO;
 import com.myschool.timetable.models.dto.response.TimetableResponseDTO;
 import com.myschool.timetable.service.TimetableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,6 +50,14 @@ public class TimetableController {
             @PathVariable Section section
     ) {
         return new ResponseEntity<>(timetableService.fetchRoutine(standard, section), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "v2/standard/{standard}/section/{section}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RoutineResponseDTO> fetchClassRoutineV2(
+            @PathVariable Standard standard,
+            @PathVariable Section section
+    ) {
+        return new ResponseEntity<>(timetableService.fetchRoutineInMap(standard, section), HttpStatus.OK);
     }
 
     @GetMapping(value = "/standard/{standard}/section/{section}/weekday/{weekDay}/period/{period}",

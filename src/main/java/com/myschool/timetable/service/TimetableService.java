@@ -5,6 +5,7 @@ import com.myschool.timetable.constants.enums.Section;
 import com.myschool.timetable.constants.enums.Standard;
 import com.myschool.timetable.constants.enums.WeekDay;
 import com.myschool.timetable.models.dto.request.TimetableRequestDTO;
+import com.myschool.timetable.models.dto.response.RoutineResponseDTO;
 import com.myschool.timetable.models.dto.response.TimetableResponseDTO;
 
 import java.io.PrintWriter;
@@ -25,6 +26,7 @@ public interface TimetableService {
     List<TimetableResponseDTO> fetchAll();
 
     List<TimetableResponseDTO> fetchRoutine(Standard standard, Section section);
+    RoutineResponseDTO fetchRoutineInMap(Standard standard, Section section);
 
     String deleteSlotDetails(Standard standard, Section section, WeekDay weekDay, MyPeriod period);
 
