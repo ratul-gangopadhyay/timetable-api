@@ -29,7 +29,7 @@ public class Messages {
     public static final String SUBJECT_NOT_NULL = "Please enter the subject name for the slot";
     public static final String SLOT_ALREADY_OCCUPIED = "%sDAY %s PERIOD is already occupied for Class %s%s";
     public static final String SLOT_NOT_FOUND = "No slot found for %sDAY %s PERIOD for Class %s%s";
-    public static final String TEACHER_OCCUPIED = "Teacher with id: %s is busy in some other class on %sDAY %s PERIOD";
+    public static final String TEACHER_OCCUPIED = "%s is busy in some other class on %sDAY %s PERIOD";
     public static final String SUBJECT_MISMATCH = "Teacher with id: %s dosen't teach %s";
     public static final String TIMETABLE_SLOT_DELETE_SUCCESS = "Successfully Deleted Slot Details For Class: %s%s %sDAY %s PERIOD";
 
