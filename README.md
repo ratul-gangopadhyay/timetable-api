@@ -1,4 +1,4 @@
-# timetable-api
+# timetable-server
 Spring Boot project with apis to generate timetables
 
 ## Getting started
