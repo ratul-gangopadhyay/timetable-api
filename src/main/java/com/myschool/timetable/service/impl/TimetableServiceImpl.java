@@ -236,11 +236,9 @@ public class TimetableServiceImpl implements TimetableService {
 
     private void validateTeachersAvailability(WeekDay weekDay, MyPeriod period, String teacherId) {
         getTeacherFromDB(teacherId);
-        if (timetableRepository.findByWeekdayAndPeriodAndTeacherId(weekDay, period, teacherId).isPresent())
-            throw new TimeTableException(String.format(TEACHER_OCCUPIED, teacherId, weekDay, period),
-                    HttpStatus.BAD_REQUEST);
-
-
+        timetableRepository.findByWeekdayAndPeriodAndTeacherId(weekDay, period, teacherId).ifPresent(timetable -> {
+            throw new TimeTableException(String.format(TEACHER_OCCUPIED, timetable.getTeacherName(), weekDay, period), HttpStatus.BAD_REQUEST);
+        });
     }
 
     private Teacher getTeacherFromDB(String teacherId) {
